@@ -48,9 +48,9 @@ $( document ).ready(function() {
   	       //authenticate success
  	       function(){
  	               ivivu.onVideoConnected = function(vplayer){
-    	            }
-        	        ivivu.onVideoDisconnected = function(vplayer){
-            	    }
+    	           }
+        	       ivivu.onVideoDisconnected = function(vplayer){
+                   }
 	       },
 	       //authenticate error
  	       function(){
