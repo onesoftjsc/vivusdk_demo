@@ -6,8 +6,22 @@ VivuSdkJS là thư viện hỗ trợ livestreaming viết cho javascript. Sử d
 ## 2. Live Demo
 - Link demo [Quay](https://bigmath.vn/bigfoxjs/demo/sharescreen/main/live.html) [Xem](https://bigmath.vn/bigfoxjs/demo/sharescreen/main/view.html)
 - Link demo [Hội nghị](https://bigmath.vn/bigfoxjs/demo/vvconference/main/index.html)
-## 3. Khởi tạo dịch vụ
-### 3.1 Thêm các dòng sau vào header của trang HTML (index.html)
+## 3. Tags quan trọng
+Kích thước của Video sẽ tự động dãn full theo kích thước phần tử html cha lưu trữ nó
+
+### 3.1 Live
+```
+<video class = 'vivusdk-live-video' liveId ='12345' /> 
+
+```
+### 3.1 View
+```
+<video class = 'vivusdk-view-video' liveId ='12345' /> 
+
+```
+
+## 4. Khởi tạo dịch vụ
+### 4.1 Thêm các dòng sau vào header của trang HTML (index.html)
 
 ```
 <meta name="appId" content="12345678"/>
@@ -19,7 +33,7 @@ VivuSdkJS là thư viện hỗ trợ livestreaming viết cho javascript. Sử d
 <script src="https://bigmath.vn/bigfoxjs/vivusdk/public/iplayer.js"></script>
 
 ```
-### 3.2 Khởi tạo dịch vụ
+### 4.2 Khởi tạo dịch vụ
 ```
 $( document ).ready(function() {
  ivivu.init(‘appId’, function () {
@@ -40,11 +54,11 @@ Nếu init thành công, sẽ gọi hàm authenticate để xác thực, nếu x
 ```ivivu.onVideoConnected = function(vplayer)  - callback khi một video kết nối truyền dữ liệu thành công```
 ```ivivu.onVideoDisconnect = function(vplayer)  - callback khi một video mất kết nối ```
 
-### 3.3 Tạo Video 
+### 4.3 Tạo Video 
 
 - ```var vplayer = ivivu.createNewVideo(type, liveId);``` - Tạo video mới với liveId, kiểu live hoặc view
 - ```type = ‘view' || ‘live'``` - tương ứng với video live hay video xem
-### 3.4 Cấu hình Video
+### 4.4 Cấu hình Video
 ```
 vplayer.setup({
 audioId: <value>,
@@ -53,12 +67,12 @@ resolution: <value>
 });
 ```
 Sau khi cấu hình Video có thể gọi hàm ```vplayer.start()``` hoặc ``vplayer.restart()`` để bắt đầu video 
-### 3.5 Bắt đầu live hoặc xem
+### 4.5 Bắt đầu live hoặc xem
 ```vplayer.start();```
-### 3.6 Hiển thị Video ở bên trong một tag bất kỳ của trang HTML
+### 4.6 Hiển thị Video ở bên trong một tag bất kỳ của trang HTML
 ```vplayer.addParent(domId);```
-### 3.7 Dừng live hoặc xem
+### 4.7 Dừng live hoặc xem
 ```vplayer.stop();```
  
-### 3.8 Thay đổi độ phân giải của Video
+### 4.8 Thay đổi độ phân giải của Video
 ```vplayer.setResolution(value); // value = 144 | 240 | 360 | 480 | 720```
