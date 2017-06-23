@@ -6,7 +6,20 @@ VivuSdkJS là thư viện hỗ trợ livestreaming viết cho javascript. Sử d
 ## 2. Live Demo
 - Link demo [Quay](https://bigmath.vn/bigfoxjs/demo/sharescreen/main/live.html) [Xem](https://bigmath.vn/bigfoxjs/demo/sharescreen/main/view.html)
 - Link demo [Hội nghị](https://bigmath.vn/bigfoxjs/demo/vvconference/main/index.html)
-## 3. Tags quan trọng
+
+Để sử dụng thư viện, bạn có 2 cách, hoặc sử dụng Tags thêm vào phần tử cha của trang html hoặc bằng cách lập trình.
+Trong cả hai trường hợp, đều phải thêm các dòng sau vào header của trang html
+
+```
+<script src="https://bigmath.vn/jquery-3.2.1.min.js"></script>
+<link rel="stylesheet" href="https://bigmath.vn/bigfoxjs/vivusdk/public/ivivu.css"/>
+<script src="https://bigmath.vn/bigfoxjs/bigfox/public/ibigfox.js"></script>
+<script src="https://bigmath.vn/bigfoxjs/vivusdk/public/ivivu.js"></script>
+<script src="https://bigmath.vn/bigfoxjs/vivusdk/public/iplayer.js"></script>
+
+```
+
+## 3. Tags
 Kích thước của Video sẽ tự động dãn full theo kích thước phần tử html cha lưu trữ nó
 
 ### 3.1 Live
@@ -20,31 +33,33 @@ Kích thước của Video sẽ tự động dãn full theo kích thước phầ
 
 ```
 
-## 4. Khởi tạo dịch vụ
-### 4.1 Thêm các dòng sau vào header của trang HTML (index.html)
+## 4. Lập trình
 
-```
-<meta name="appId" content="12345678"/>
-<meta name="serverSDK" content="wss://vivulive.com:6612" />
-	<script src="https://bigmath.vn/jquery-3.2.1.min.js"></script>
-<link rel="stylesheet" href="https://bigmath.vn/bigfoxjs/vivusdk/public/ivivu.css"/>
-<script src="https://bigmath.vn/bigfoxjs/bigfox/public/ibigfox.js"></script>
-<script src="https://bigmath.vn/bigfoxjs/vivusdk/public/ivivu.js"></script>
-<script src="https://bigmath.vn/bigfoxjs/vivusdk/public/iplayer.js"></script>
-
-```
-### 4.2 Khởi tạo dịch vụ
+### 4.1 Khởi tạo dịch vụ
 ```
 $( document ).ready(function() {
- ivivu.init(‘appId’, function () {
-  ivivu.authenticate(‘token’, function(){
-        // To do here when authenticate success
-        ivivu.onVideoConnected = function(vplayer){
-        }
-        ivivu.onVideoDisconnected = function(vplayer){
-        }
-  });
-});
+	var appId = '7aaa34b7-c78c-4d41-88a7-0929f86084d4';
+	var secretKey = 'ec58b2d92e282f363f7c367e27f82feb49669c40';
+	ivivu.init(appId, 
+	   //init success
+	   function () {
+ 	   var token = md5(appId + secretKey + ivivu.bfConnect.sessionId);
+	   ivivu.authenticate(token, 
+  	       //authenticate success
+ 	       function(){
+ 	               ivivu.onVideoConnected = function(vplayer){
+    	            }
+        	        ivivu.onVideoDisconnected = function(vplayer){
+            	    }
+	       },
+	       //authenticate error
+ 	       function(){
+  	       }
+	   );
+	   }),
+	   //init error
+ 	   function(){
+ 	   };
 });
 
 ```
@@ -54,11 +69,11 @@ Nếu init thành công, sẽ gọi hàm authenticate để xác thực, nếu x
 ```ivivu.onVideoConnected = function(vplayer)  - callback khi một video kết nối truyền dữ liệu thành công```
 ```ivivu.onVideoDisconnect = function(vplayer)  - callback khi một video mất kết nối ```
 
-### 4.3 Tạo Video 
+### 4.2 Tạo Video 
 
 - ```var vplayer = ivivu.createNewVideo(type, liveId);``` - Tạo video mới với liveId, kiểu live hoặc view
 - ```type = ‘view' || ‘live'``` - tương ứng với video live hay video xem
-### 4.4 Cấu hình Video
+### 4.3 Cấu hình Video
 ```
 vplayer.setup({
 audioId: <value>,
@@ -67,12 +82,12 @@ resolution: <value>
 });
 ```
 Sau khi cấu hình Video có thể gọi hàm ```vplayer.start()``` hoặc ``vplayer.restart()`` để bắt đầu video 
-### 4.5 Bắt đầu live hoặc xem
+### 4.4 Bắt đầu live hoặc xem
 ```vplayer.start();```
-### 4.6 Hiển thị Video ở bên trong một tag bất kỳ của trang HTML
+### 4.5 Hiển thị Video ở bên trong một tag bất kỳ của trang HTML
 ```vplayer.addParent(domId);```
-### 4.7 Dừng live hoặc xem
+### 4.6 Dừng live hoặc xem
 ```vplayer.stop();```
  
-### 4.8 Thay đổi độ phân giải của Video
+### 4.7 Thay đổi độ phân giải của Video
 ```vplayer.setResolution(value); // value = 144 | 240 | 360 | 480 | 720```
