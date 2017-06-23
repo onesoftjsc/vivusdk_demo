@@ -76,24 +76,24 @@ Nếu init thành công, sẽ gọi hàm authenticate để xác thực, nếu x
 ```ivivu.onVideoDisconnect = function(vplayer)  - callback khi một video mất kết nối ```
 
 
-##3. Tags
+## 4. Tags
 
 Kích thước của Video sẽ tự động dãn full theo kích thước phần tử html cha lưu trữ nó
 
-###3.1 Live
+### 4.1 Live
 ```
 <video class = 'vivusdk-live-video' liveId ='12345' /> 
 ```
-###3.1 View
+### 4.1 View
 ```
 <video class = 'vivusdk-view-video' liveId ='12345' /> 
 ```
-##4. Lập trình
-### 4.1 Tạo Video 
+## 5. Lập trình
+### 5.1 Tạo Video 
 
 - ```var vplayer = ivivu.createNewVideo(type, liveId);``` - Tạo video mới với liveId, kiểu live hoặc view
 - ```type = ‘view' || ‘live'``` - tương ứng với video live hay video xem
-### 4.2 Cấu hình Video
+### 5.2 Cấu hình Video
 ```
 vplayer.setup({
 audioId: <value>,
@@ -102,12 +102,12 @@ resolution: <value>
 });
 ```
 Sau khi cấu hình Video có thể gọi hàm ```vplayer.start()``` hoặc ``vplayer.restart()`` để bắt đầu video 
-### 4.3 Bắt đầu live hoặc xem
+### 5.3 Bắt đầu live hoặc xem
 ```vplayer.start();```
-### 4.4 Hiển thị Video ở bên trong một tag bất kỳ của trang HTML
+### 5.4 Hiển thị Video ở bên trong một tag bất kỳ của trang HTML
 ```vplayer.addParent(domId);```
-### 4.5 Dừng live hoặc xem
+### 5.5 Dừng live hoặc xem
 ```vplayer.stop();```
  
-### 4.6 Thay đổi độ phân giải của Video
+### 5.6 Thay đổi độ phân giải của Video
 ```vplayer.setResolution(value); // value = 144 | 240 | 360 | 480 | 720```
