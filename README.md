@@ -11,6 +11,7 @@ VivuSdkJS là thư viện hỗ trợ livestreaming viết cho javascript. Sử d
 Trong cả hai trường hợp, đều phải thêm các dòng sau vào header của trang html
 
 ```
+<meta name="serverSDK" content="wss://vivulive.com:6612" />
 <script src="https://bigmath.vn/jquery-3.2.1.min.js"></script>
 <link rel="stylesheet" href="https://bigmath.vn/bigfoxjs/vivusdk/public/ivivu.css"/>
 <script src="https://bigmath.vn/bigfoxjs/bigfox/public/ibigfox.js"></script>
@@ -19,23 +20,10 @@ Trong cả hai trường hợp, đều phải thêm các dòng sau vào header c
 
 ```
 
-## 3. Tags
-Kích thước của Video sẽ tự động dãn full theo kích thước phần tử html cha lưu trữ nó
 
-### 3.1 Live
-```
-<video class = 'vivusdk-live-video' liveId ='12345' /> 
+## 3. Khởi tạo
 
-```
-### 3.1 View
-```
-<video class = 'vivusdk-view-video' liveId ='12345' /> 
-
-```
-
-## 4. Lập trình
-
-### 4.1 Khởi tạo
+### 3.1 Kết nối
 ```
 ivivu.init(appId, success, error);
 - success = function(sessionId) // hàm trả về khi kết nối tới Server SDK thành công kèm theo giá trị sessionId
@@ -44,7 +32,7 @@ ivivu.init(appId, success, error);
 ```
 Lưu ý: hàm khởi tạo ivivu.init phải được gọi sau khi document đã load xong
 
-### 4.2 Xác thực
+### 3.2 Xác thực
 ```
 ivivu.authenticate(token, success, error);
 - success = function() // hàm trả về khi xác thực tài khoản thành công
@@ -62,8 +50,8 @@ $( document ).ready(function() {
 	var secretKey = 'ec58b2d92e282f363f7c367e27f82feb49669c40';
 	ivivu.init(appId, 
 	   //init success
-	   function () {
- 	   var token = md5(appId + secretKey + ivivu.bfConnect.sessionId);
+	   function (sessionId) {
+ 	   var token = md5(appId + secretKey + sessionId);
 	   ivivu.authenticate(token, 
   	       //authenticate success
  	       function(){
@@ -87,11 +75,25 @@ Nếu init thành công, sẽ gọi hàm authenticate để xác thực, nếu x
 ```ivivu.onVideoConnected = function(vplayer)  - callback khi một video kết nối truyền dữ liệu thành công```
 ```ivivu.onVideoDisconnect = function(vplayer)  - callback khi một video mất kết nối ```
 
-### 4.3 Tạo Video 
+
+##3. Tags
+
+Kích thước của Video sẽ tự động dãn full theo kích thước phần tử html cha lưu trữ nó
+
+###3.1 Live
+```
+<video class = 'vivusdk-live-video' liveId ='12345' /> 
+```
+###3.1 View
+```
+<video class = 'vivusdk-view-video' liveId ='12345' /> 
+```
+##4. Lập trình
+### 4.1 Tạo Video 
 
 - ```var vplayer = ivivu.createNewVideo(type, liveId);``` - Tạo video mới với liveId, kiểu live hoặc view
 - ```type = ‘view' || ‘live'``` - tương ứng với video live hay video xem
-### 4.4 Cấu hình Video
+### 4.2 Cấu hình Video
 ```
 vplayer.setup({
 audioId: <value>,
@@ -100,12 +102,12 @@ resolution: <value>
 });
 ```
 Sau khi cấu hình Video có thể gọi hàm ```vplayer.start()``` hoặc ``vplayer.restart()`` để bắt đầu video 
-### 4.5 Bắt đầu live hoặc xem
+### 4.3 Bắt đầu live hoặc xem
 ```vplayer.start();```
-### 4.6 Hiển thị Video ở bên trong một tag bất kỳ của trang HTML
+### 4.4 Hiển thị Video ở bên trong một tag bất kỳ của trang HTML
 ```vplayer.addParent(domId);```
-### 4.7 Dừng live hoặc xem
+### 4.5 Dừng live hoặc xem
 ```vplayer.stop();```
  
-### 4.8 Thay đổi độ phân giải của Video
+### 4.6 Thay đổi độ phân giải của Video
 ```vplayer.setResolution(value); // value = 144 | 240 | 360 | 480 | 720```
