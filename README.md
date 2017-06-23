@@ -4,8 +4,7 @@
 
 VivuSdkJS là thư viện hỗ trợ livestreaming viết cho javascript. Sử dụng thư viện này, nhà phát triển không cần quan tâm tới hạ tầng server bên dưới. Chế độ phân tải, high avaiable được đảm bảo để dịch vụ chạy ổn định 24/7.
 ## 2. Live Demo
-- Link demo [Quay](https://bigmath.vn/bigfoxjs/demo/sharescreen/main/live.html)
-- Link demo [Xem](https://bigmath.vn/bigfoxjs/demo/sharescreen/main/view.html)
+- Link demo [Quay](https://bigmath.vn/bigfoxjs/demo/sharescreen/main/live.html) [Xem](https://bigmath.vn/bigfoxjs/demo/sharescreen/main/view.html)
 - Link demo [Hội nghị](https://bigmath.vn/bigfoxjs/demo/vvconference/main/index.html)
 ## 3. Khởi tạo dịch vụ
 ### 3.1 Thêm các dòng sau vào <head> của trang HTML (index.html)
