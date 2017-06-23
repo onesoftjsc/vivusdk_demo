@@ -35,7 +35,27 @@ Kích thước của Video sẽ tự động dãn full theo kích thước phầ
 
 ## 4. Lập trình
 
-### 4.1 Khởi tạo dịch vụ
+### 4.1 Khởi tạo
+```
+ivivu.init(appId, success, error);
+- success = function(sessionId) // hàm trả về khi kết nối tới Server SDK thành công kèm theo giá trị sessionId
+- error = function(message) // trả về khi lỗi, kèm theo nội dung lỗi 
+
+```
+Lưu ý: hàm khởi tạo ivivu.init phải được gọi sau khi document đã load xong
+
+### 4.2 Xác thực
+```
+ivivu.authenticate(token, success, error);
+- success = function() // hàm trả về khi xác thực tài khoản thành công
+- error = function(message) // trả về khi lỗi, kèm theo nội dung lỗi 
+
+```
+
+Sau khi khởi tạo bằng hàm ivivu.init thành công, cần gọi hàm ivivu.authenticate với giá trị token để xác thực tài khoản.
+Giá trị token được tính bằng công thức token = md5(appId + secretKey + sessionId) trong đó appId và secretKey được cung cấp khi đăng ký tài khoản trên trang http://vivusdk.com 
+
+Ví dụ của việc sử dụng hàm ivivu.init và ivivu.authenticate
 ```
 $( document ).ready(function() {
 	var appId = '7aaa34b7-c78c-4d41-88a7-0929f86084d4';
@@ -67,11 +87,11 @@ Nếu init thành công, sẽ gọi hàm authenticate để xác thực, nếu x
 ```ivivu.onVideoConnected = function(vplayer)  - callback khi một video kết nối truyền dữ liệu thành công```
 ```ivivu.onVideoDisconnect = function(vplayer)  - callback khi một video mất kết nối ```
 
-### 4.2 Tạo Video 
+### 4.3 Tạo Video 
 
 - ```var vplayer = ivivu.createNewVideo(type, liveId);``` - Tạo video mới với liveId, kiểu live hoặc view
 - ```type = ‘view' || ‘live'``` - tương ứng với video live hay video xem
-### 4.3 Cấu hình Video
+### 4.4 Cấu hình Video
 ```
 vplayer.setup({
 audioId: <value>,
@@ -80,12 +100,12 @@ resolution: <value>
 });
 ```
 Sau khi cấu hình Video có thể gọi hàm ```vplayer.start()``` hoặc ``vplayer.restart()`` để bắt đầu video 
-### 4.4 Bắt đầu live hoặc xem
+### 4.5 Bắt đầu live hoặc xem
 ```vplayer.start();```
-### 4.5 Hiển thị Video ở bên trong một tag bất kỳ của trang HTML
+### 4.6 Hiển thị Video ở bên trong một tag bất kỳ của trang HTML
 ```vplayer.addParent(domId);```
-### 4.6 Dừng live hoặc xem
+### 4.7 Dừng live hoặc xem
 ```vplayer.stop();```
  
-### 4.7 Thay đổi độ phân giải của Video
+### 4.8 Thay đổi độ phân giải của Video
 ```vplayer.setResolution(value); // value = 144 | 240 | 360 | 480 | 720```
