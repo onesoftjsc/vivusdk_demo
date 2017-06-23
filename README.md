@@ -47,10 +47,8 @@ $( document ).ready(function() {
 	   ivivu.authenticate(token, 
   	       //authenticate success
  	       function(){
- 	               ivivu.onVideoConnected = function(vplayer){
-    	           }
-        	       ivivu.onVideoDisconnected = function(vplayer){
-                   }
+ 	               ivivu.onVideoConnected = function(vplayer){}
+        	       ivivu.onVideoDisconnected = function(vplayer){}
 	       },
 	       //authenticate error
  	       function(){
