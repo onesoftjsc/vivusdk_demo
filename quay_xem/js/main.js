@@ -36,19 +36,36 @@ vdevices.onclick = function () {
 }
 $(document).ready(function () {
     var appId = $("meta[name='appId']").attr("content");
-    ivivu.init(appId, function () {
-        ivivu.authenticate(appId, function () {
+    var secretKey = $("meta[name='secretKey']").attr("content");
+
+    ivivu.init(appId,
+        //success
+        function (sessionId) {
+        var token = md5(appId + secretKey + sessionId);
+        ivivu.authenticate(token,
+            //success
+            function () {
             var viewer = document.getElementById('container-view');
             if (viewer != null) {
                 var vplayer = ivivu.createNewVideo('view', liveId);
                 vplayer.addParent('container-view');
+                vplayer.onConnected = function(){
+                    vplayer.mute();
+                }
                 vplayer.start();
             } else
-                //navigator.mediaDevices.enumerateDevices().then(vdevices.gotDevices).catch(handleError);
                 ivivu.setDevice('selectaudio', 'selectvideo');
                 ivivu.setResolution('resolution');
+             },
+              //error
+            function(){
+
+            });
+        },
+        //error
+        function(){
+
         });
-    });
 
     ivivu.onVideoConnected = function(vplayer){
 

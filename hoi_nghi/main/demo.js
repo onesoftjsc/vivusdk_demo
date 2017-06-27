@@ -10,11 +10,28 @@ $(document).ready(function () {
    var appId = $("meta[name='appId']").attr("content");
    ivivu.setDevice('selectaudio', 'selectvideo');
 
-   ivivu.init(appId, function () {
-      ivivu.authenticate(appId, function(){
-         vvcService.init();
-      });
-   });
+   var appId = $("meta[name='appId']").attr("content");
+   var secretKey = $("meta[name='secretKey']").attr("content");
+
+   ivivu.init(appId,
+       //success
+       function () {
+          var token = md5(appId + secretKey + ivivu.bfConnect.sessionId);
+          ivivu.authenticate(token,
+              //success
+              function () {
+                  vvcService.init();
+              },
+              //error
+              function(){
+
+              });
+       },
+       //error
+       function(){
+
+       });
+
 
    ivivu.onVideoConnected = function(vplayer){
       for( var videoId in vplayer.parentIds){
